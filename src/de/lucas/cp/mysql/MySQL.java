@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 23.9.2020.
+ *
+ * CP copyright by Lucas
+ */
 package de.lucas.cp.mysql;
 
 import de.lucas.cp.main.ControlPanel;

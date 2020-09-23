@@ -1,5 +1,12 @@
+/*
+ * Copyright (c) 23.9.2020.
+ *
+ * CP copyright by Lucas
+ */
 package de.lucas.cp.main;
 
+import de.lucas.cp.commands.cpadmincommands;
+import de.lucas.cp.commands.cpcommands;
 import de.lucas.cp.events.JoinQuit;
 import de.lucas.cp.mysql.MySQL;
 import de.lucas.cp.mysql.MySQLTables;
@@ -41,6 +48,7 @@ public class ControlPanel extends JavaPlugin {
     @Override
     public void onDisable() {
         mysql.close();
+        Datasave.status.clear();
     }
 
     /*
@@ -54,6 +62,9 @@ public class ControlPanel extends JavaPlugin {
     public void register() {
         PluginManager pm = Bukkit.getPluginManager();
         pm.registerEvents(new JoinQuit(), this);
+
+        getCommand("cp").setExecutor(new cpcommands());
+        getCommand("cpadmin").setExecutor(new cpadmincommands());
     }
 
     /*

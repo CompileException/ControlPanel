@@ -25,7 +25,7 @@ public class API {
 
     public static boolean playerExists(String uuid) {
         try {
-            ResultSet rs = ControlPanel.mysql.query("SELECT * FROM cpadmins WHERE UUID= '" + uuid + "'");
+            ResultSet rs = ControlPanel.mysql.query("SELECT * FROM cpusers WHERE UUID= '" + uuid + "'");
             if (rs.next()) {
                 return rs.getString("UUID") != null;
             } else {
@@ -52,33 +52,13 @@ public class API {
         Bukkit.getConsoleSender().sendMessage(Datasave.prefix + "§a[USERS] Player existing!");
     }
 
-    /*
-    RANG
-     */
-
-    public static String getRang(String uuid) {
-        String rang = "";
-        if (playerExists(uuid)) {
-            try {
-                ResultSet rs = ControlPanel.mysql.query("SELECT * FROM cpusers WHERE UUID= '" + uuid + "'");
-                if (rs.next() && rs.getString("RANG") == null) {
-                }
-
-                rang = rs.getString("RANG");
-            } catch (SQLException var3) {
-                var3.printStackTrace();
-            }
-        }
-
-        return rang;
-    }
 
     /*
     STATUS
      */
     public static void setStatus(String uuid, String status) {
         if (playerExists(uuid)) {
-            ControlPanel.mysql.update("UPDATE `cpusers` SET `STATUS`= '"+status+"' WHERE UUID= '"+uuid+"'");
+            ControlPanel.mysql.update("UPDATE `cplogin` SET `STATUS`= '"+status+"' WHERE UUID= '"+uuid+"'");
         }
     }
 
@@ -86,7 +66,7 @@ public class API {
         String status = "";
         if (playerExists(uuid)) {
             try {
-                ResultSet rs = ControlPanel.mysql.query("SELECT * FROM cpusers WHERE UUID= '" + uuid + "'");
+                ResultSet rs = ControlPanel.mysql.query("SELECT * FROM cplogin WHERE UUID= '" + uuid + "'");
                 if (rs.next() && rs.getString("STATUS") == null) {
                 }
 
@@ -104,7 +84,7 @@ public class API {
      */
     public static void setsupports(String uuid, Integer supports) {
         if (playerExists(uuid)) {
-            ControlPanel.mysql.update("UPDATE cpstats SET supports= '" + supports + "' WHERE UUID= '" + uuid + "';");
+            ControlPanel.mysql.update("UPDATE cpsupstats SET supports= '" + supports + "' WHERE UUID= '" + uuid + "';");
         } else {
             setsupports(uuid, supports);
         }
@@ -114,7 +94,7 @@ public class API {
         Integer i = 0;
         if (playerExists(uuid)) {
             try {
-                ResultSet rs = ControlPanel.mysql.query("SELECT * FROM cpstats WHERE UUID= '" + uuid + "'");
+                ResultSet rs = ControlPanel.mysql.query("SELECT * FROM cpsupstats WHERE UUID= '" + uuid + "'");
                 i = rs.getInt("supports");
             } catch (SQLException var3) {
                 var3.printStackTrace();
@@ -126,6 +106,36 @@ public class API {
         return i;
     }
 
+    /*
+    REPORTS
+     */
+    public static void setreports(String uuid, Integer reports) {
+        if (playerExists(uuid)) {
+            ControlPanel.mysql.update("UPDATE cpsupstats SET reports= '" + reports + "' WHERE UUID= '" + uuid + "';");
+        } else {
+            setsupports(uuid, reports);
+        }
+    }
+
+    public static Integer getReports(String uuid) {
+        Integer i = 0;
+        if (playerExists(uuid)) {
+            try {
+                ResultSet rs = ControlPanel.mysql.query("SELECT * FROM cpsupstats WHERE UUID= '" + uuid + "'");
+                i = rs.getInt("reports");
+            } catch (SQLException var3) {
+                var3.printStackTrace();
+            }
+        } else {
+            getSupports(uuid);
+        }
+
+        return i;
+    }
+
+
+    /*
+
     public static void addsupport(String uuid) {
         Integer i = 1;
         if (playerExists(uuid)) {
@@ -133,6 +143,6 @@ public class API {
         } else {
             addsupport(uuid);
         }
-
     }
+     */
 }

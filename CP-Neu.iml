@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Spigot1.8" level="project" />
+    <orderEntry type="library" name="ActionBarAPI-1.5.4" level="project" />
   </component>
 </module>

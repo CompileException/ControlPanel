@@ -3,3 +3,5 @@ author: Lucas
 main: de.lucas.cp.main.ControlPanel
 version: 1.0.0
 commands:
+  cp:
+  cpadmin:
