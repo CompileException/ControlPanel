@@ -1,0 +1,5 @@
+name: LobbySystem
+author: Lucas
+version: 0.0.1
+main: de.lucas.lobby.main.LobbySystem
+commands:

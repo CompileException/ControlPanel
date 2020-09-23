@@ -1,6 +1,8 @@
 package de.lucas.cp.main;
 
+import de.lucas.cp.events.JoinQuit;
 import de.lucas.cp.mysql.MySQL;
+import de.lucas.cp.mysql.MySQLTables;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -51,6 +53,7 @@ public class ControlPanel extends JavaPlugin {
      */
     public void register() {
         PluginManager pm = Bukkit.getPluginManager();
+        pm.registerEvents(new JoinQuit(), this);
     }
 
     /*
@@ -64,13 +67,13 @@ public class ControlPanel extends JavaPlugin {
 
         try {
             mysql = new MySQL(ip, database, name, passwort);
-            mysql.update("CREATE TABLE IF NOT EXISTS cpusers(NAME varchar(64), UUID varchar(64), STATUS varchar(64), PASSWORD varchar(64));");
+            MySQLTables.createifnotexist();
 
-            Bukkit.getConsoleSender().sendMessage("§6[CP-MYSQL] starting connecting...");
-            Bukkit.getConsoleSender().sendMessage("§a[CP-MYSQL] connected!");
+            Bukkit.getConsoleSender().sendMessage(Datasave.prefix + "§6[CP-MYSQL] starting connecting...");
+            Bukkit.getConsoleSender().sendMessage(Datasave.prefix + "§a[CP-MYSQL] connected!");
         } catch (Exception var6) {
-            Bukkit.getConsoleSender().sendMessage("§6[CP-MYSQL] starting connecting...");
-            Bukkit.getConsoleSender().sendMessage("§4[CP-MYSQL] Connection refused Plugin shutdown!");
+            Bukkit.getConsoleSender().sendMessage(Datasave.prefix + "§6[CP-MYSQL] starting connecting...");
+            Bukkit.getConsoleSender().sendMessage(Datasave.prefix + "§4[CP-MYSQL] Connection refused Plugin shutdown!");
             Bukkit.getPluginManager().disablePlugin(this);
         }
     }

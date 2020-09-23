@@ -1,0 +1,7 @@
+name: ControlPanel
+author: Lucas
+version: 0.0.4
+main: de.lucas.cp.main.ControlPanel
+commands:
+  cp:
+  cpadmin:

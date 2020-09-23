@@ -1,4 +1,4 @@
-package de.lucas.cp.mysql;
+package de.lucas.cp.utils;
 
 import de.lucas.cp.main.ControlPanel;
 
@@ -66,5 +66,19 @@ public class MySQL {
         }
 
         return rs;
+    }
+
+    public static boolean playerExists(String uuid) {
+        try {
+            ResultSet rs = ControlPanel.mysql.query("SELECT * FROM cpusers WHERE UUID= '" + uuid + "'");
+            if (rs.next()) {
+                return rs.getString("UUID") != null;
+            } else {
+                return false;
+            }
+        } catch (SQLException var2) {
+            var2.printStackTrace();
+            return false;
+        }
     }
 }
